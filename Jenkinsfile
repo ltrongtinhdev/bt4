@@ -15,7 +15,8 @@ pipeline {
             steps {
                 echo 'Running Docker container...'
                 sh '''
-                echo "Hello"
+                docker rm my-nginx || true
+                docker-compose up -d
                 '''
             }
         }
