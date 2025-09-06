@@ -4,6 +4,21 @@ pipeline {
             TELEGRAM_BOT_TOKEN = credentials('telegram-token') // Telegram bot
             TELEGRAM_CHAT_ID = credentials('telegram-chat-id') // Telegram bot chat id
     }
+    stage('Check Commit') {
+         steps {
+             script {
+                 def commitMsg = sh(
+                     script: "git log -1 --pretty=%B",
+                     returnStdout: true
+                 )
+                 if (!commitMsg.contains("[jenkins]")) {
+                     echo "⏩ Commit không có tag [jenkins], skip build."
+                     currentBuild.result = 'SUCCESS'
+                     error("Skip build") // dừng job
+                 }
+             }
+         }
+    }
     stages {
         stage('Clone Repository') {
             steps {
