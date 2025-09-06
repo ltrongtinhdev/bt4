@@ -1,10 +1,8 @@
 pipeline {
     agent any
-    evironment {
-        environment {
+    environment {
             TELEGRAM_BOT_TOKEN = credentials('telegram-token') // Telegram bot
             TELEGRAM_CHAT_ID = credentials('telegram-chat-id') // Telegram bot chat id
-        }
     }
     stages {
         stage('Clone Repository') {
