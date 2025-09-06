@@ -11,19 +11,11 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build Docker Image') {
-            steps {
-                echo 'Building Docker image...'
-                sh 'docker build -t my-web-app .'
-            }
-        }
         stage('Run Docker Container') {
             steps {
                 echo 'Running Docker container...'
                 sh '''
-                docker stop my-web-app || true
-                docker rm my-web-app || true
-                docker run -d --name my-web-app -p 8090:80 my-web-app
+                echo "Hello"
                 '''
             }
         }
